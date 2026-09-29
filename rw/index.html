@@ -15,16 +15,19 @@
 <h1>rw Drive Indexer</h1>
 <p>
 rw Drive Indexer is an internal tool used by the rw team to scan and index
-Google Drive files (research reports and recordings) belonging to a single Google account,
-so the team's Claude Code assistant can search and answer questions about them.
+Google Drive files (research reports and recordings) belonging to a single
+Google account that the account holder runs this tool for, so the team's
+Claude Code assistant can search and answer questions about them.
 </p>
 <p>
-This app requests read-only access to a single, explicitly user-selected Google Drive folder
-(via the Google Picker) using the <code>drive.file</code> scope. It does not access any other
-files in the user's Drive.
+This app requests read-only access to that account's Google Drive
+(<code>drive.readonly</code> and <code>drive.metadata.readonly</code>) so it
+can list and read the files needed for indexing. It never writes to,
+deletes from, or otherwise modifies anything in Drive.
 </p>
 <p>
-This is an internal tool for a single organization, not distributed publicly.
+This is an internal tool for a single organization and a single, consenting
+Google account holder — not distributed publicly.
 </p>
 <p><a href="privacy.html">Privacy Policy</a></p>
 <footer>rw / AINativeAgentManager</footer>

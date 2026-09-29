@@ -14,33 +14,39 @@
 </head>
 <body>
 <h1>Privacy Policy</h1>
-<p>Last updated: 2026-09-07</p>
+<p>Last updated: 2026-09-29</p>
 
 <p>
-rw Drive Indexer ("the app") is an internal tool built for a single organization's
-own use. This policy explains what the app accesses and how that data is used.
+rw Drive Indexer ("the app") is an internal tool built for a single
+organization's own use, operated with the explicit consent of the single
+Google account holder whose Drive it reads. This policy explains what the
+app accesses and how that data is used.
 </p>
 
 <h2>What we access</h2>
 <p>
-The app requests the <code>https://www.googleapis.com/auth/drive.file</code> scope. Under
-this scope, the app can only access files and folders that the account holder explicitly
-selects via the Google Picker at the time of authorization. The app cannot browse, list, or
-read any other file in the account holder's Google Drive.
+The app requests the <code>https://www.googleapis.com/auth/drive.readonly</code>
+and <code>https://www.googleapis.com/auth/drive.metadata.readonly</code>
+scopes against the single Google account that authorized it. Under these
+scopes the app can list and read the content of files and folders in that
+account's Google Drive. The app cannot write, modify, or delete anything in
+Drive, and it never accesses any Google account other than the one that
+explicitly authorized it.
 </p>
 
 <h2>How the data is used</h2>
 <p>
-Files and folders the account holder selects are periodically scanned. Extracted text
-(from documents) and transcripts (from audio recordings) are stored in a private index used
-solely to answer questions from members of the same organization. No data is shared with
-any third party, sold, or used for advertising.
+Files and folders in the authorized account are periodically scanned.
+Extracted text (from documents) and transcripts (from audio recordings) are
+stored in a private index used solely to answer questions from members of
+the same organization. No data is shared with any third party, sold, or
+used for advertising.
 </p>
 
 <h2>Data retention</h2>
 <p>
-Indexed content is retained until the organization removes it or revokes the app's access.
-Access can be revoked at any time via
+Indexed content is retained until the organization removes it or revokes
+the app's access. Access can be revoked at any time via
 <a href="https://myaccount.google.com/permissions" target="_blank" rel="noopener">Google Account permissions</a>.
 </p>
 
