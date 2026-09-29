@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Select Drive Folder - Riverwood Drive Indexer</title>
+<title>Select Drive Folder - rw Drive Indexer</title>
 <style>
   body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; max-width: 640px; margin: 60px auto; padding: 0 20px; color: #1a1a1a; line-height: 1.6; }
   h1 { font-size: 1.4em; }
@@ -17,9 +17,9 @@
 </style>
 </head>
 <body>
-<h1>Select the Riverwood Drive folder</h1>
+<h1>Select the rw Drive folder</h1>
 <p>
-This grants the Riverwood indexer access to only the folder you select below (nothing else
+This grants the rw indexer access to only the folder you select below (nothing else
 in your Drive). Paste in the two values you were given, then click "Select folder".
 </p>
 
@@ -63,7 +63,7 @@ in your Drive). Paste in the two values you were given, then click "Select folde
       .setDeveloperKey(apiKey)
       .setOAuthToken(token)
       .addView(view)
-      .setTitle('Select the folder to share with Riverwood')
+      .setTitle('Select the folder to share with rw')
       .setCallback((data) => {
         if (data.action === google.picker.Action.PICKED) {
           const doc = data.docs[0];
