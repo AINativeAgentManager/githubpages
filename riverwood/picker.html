@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Select Drive Folder - Riverwood Drive Indexer</title>
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; max-width: 640px; margin: 60px auto; padding: 0 20px; color: #1a1a1a; line-height: 1.6; }
+  h1 { font-size: 1.4em; }
+  label { display: block; font-weight: 600; margin-top: 1.2em; }
+  input[type=text] { width: 100%; padding: 8px; box-sizing: border-box; font-family: monospace; margin-top: 4px; }
+  button { margin-top: 1.2em; padding: 10px 20px; font-size: 1em; background: #2563eb; color: #fff; border: none; border-radius: 6px; cursor: pointer; }
+  button:disabled { background: #999; cursor: not-allowed; }
+  #result { margin-top: 1.5em; padding: 12px; border-radius: 6px; background: #f0fdf4; border: 1px solid #bbf7d0; display: none; }
+  #result.error { background: #fef2f2; border-color: #fecaca; }
+  code { background: #f1f5f9; padding: 2px 5px; border-radius: 4px; }
+</style>
+</head>
+<body>
+<h1>Select the Riverwood Drive folder</h1>
+<p>
+This grants the Riverwood indexer access to only the folder you select below (nothing else
+in your Drive). Paste in the two values you were given, then click "Select folder".
+</p>
+
+<label for="apiKey">Developer API key</label>
+<input type="text" id="apiKey" placeholder="AIza...">
+
+<label for="accessToken">Access token</label>
+<input type="text" id="accessToken" placeholder="ya29...">
+
+<button id="openPicker" disabled>Select folder</button>
+
+<div id="result"></div>
+
+<script src="https://apis.google.com/js/api.js"></script>
+<script>
+  let pickerApiLoaded = false;
+
+  function onApiLoad() {
+    gapi.load('picker', { callback: () => { pickerApiLoaded = true; refreshButtonState(); } });
+  }
+  onApiLoad();
+
+  const apiKeyEl = document.getElementById('apiKey');
+  const tokenEl = document.getElementById('accessToken');
+  const btn = document.getElementById('openPicker');
+  const resultEl = document.getElementById('result');
+
+  function refreshButtonState() {
+    btn.disabled = !(pickerApiLoaded && apiKeyEl.value.trim() && tokenEl.value.trim());
+  }
+  apiKeyEl.addEventListener('input', refreshButtonState);
+  tokenEl.addEventListener('input', refreshButtonState);
+
+  btn.addEventListener('click', () => {
+    const apiKey = apiKeyEl.value.trim();
+    const token = tokenEl.value.trim();
+    const view = new google.picker.DocsView(google.picker.ViewId.FOLDERS)
+      .setSelectFolderEnabled(true)
+      .setIncludeFolders(true);
+    const picker = new google.picker.PickerBuilder()
+      .setDeveloperKey(apiKey)
+      .setOAuthToken(token)
+      .addView(view)
+      .setTitle('Select the folder to share with Riverwood')
+      .setCallback((data) => {
+        if (data.action === google.picker.Action.PICKED) {
+          const doc = data.docs[0];
+          resultEl.className = '';
+          resultEl.style.display = 'block';
+          resultEl.innerHTML = '✅ Selected folder: <b>' + doc.name + '</b><br>Folder ID: <code>' + doc.id + '</code><br><br>Send this Folder ID back in Discord so it can be confirmed.';
+        } else if (data.action === google.picker.Action.CANCEL) {
+          resultEl.className = 'error';
+          resultEl.style.display = 'block';
+          resultEl.innerText = 'Selection cancelled — click "Select folder" to try again.';
+        }
+      })
+      .build();
+    picker.setVisible(true);
+  });
+</script>
+</body>
+</html>
